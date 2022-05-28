@@ -5,7 +5,7 @@ class FewshotGymDataset():
     def write_to_tsv(self, lst, out_file):
         with open(out_file, "w", encoding="utf-8") as fout:
             for line in lst:
-                fout.write("{}\t{}\n".format(line[0], line[1]))
+                fout.write("{}\t{}\n".format(str(line[0]).encode('utf-8'), str(line[1]).encode('utf-8')))
 
 class FewshotGymClassificationDataset(FewshotGymDataset):
 
