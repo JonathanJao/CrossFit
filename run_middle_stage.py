@@ -2,7 +2,7 @@ import os
 import numpy as np
 import torch
 
-from transformers.models.bart import BartTokenizer, BartConfig
+from transformers import BartTokenizer, BartConfig
 from transformers import AdamW, get_linear_schedule_with_warmup
 
 from dataloader.fewshot_gym_singletask import NLPFewshotGymSingleTaskData
@@ -62,6 +62,36 @@ def run(args, logger):
                                         num_warmup_steps=args.warmup_steps,
                                         num_training_steps=args.total_steps)
         best_dev_performance, best_model_state_dict = train(args, logger, model, train_data, dev_data, optimizer, scheduler)
+
+    if args.do_predict:
+        if args.do_train and best_model_state_dict is not None:
+            model = MyBart.from_pretrained(args.model,
+                                       state_dict=best_model_state_dict)
+            logger.info("Loading checkpoint from CPU")
+        else:
+            checkpoint = os.path.join(args.output_dir, args.predict_checkpoint)
+            def convert_to_single_gpu(state_dict):
+                def _convert(key):
+                    if key.startswith('module.'):
+                        return key[7:]
+                    return key
+                return {_convert(key):value for key, value in state_dict.items()}
+            model = MyBart.from_pretrained(args.model,
+                                        state_dict=convert_to_single_gpu(torch.load(checkpoint)))
+            logger.info("Loading checkpoint from {}".format(checkpoint))
+
+        if torch.cuda.is_available():
+            model.to(torch.device("cuda"))
+        model.eval()
+
+        data_type = "test" if "test" in args.test_file else "dev"
+        test_data = NLPFewshotGymSingleTaskData(logger, args, args.test_file, data_type=data_type, is_training=False)
+
+        test_data.load_dataset(tokenizer)
+        test_data.load_dataloader()
+
+        test_performance = inference(model, test_data, save_predictions=True, verbose=True)
+        logger.info("%s on %s data: %.2f" % (test_data.metric, test_data.data_type, test_performance))
 
     return best_dev_performance, test_performance
 
