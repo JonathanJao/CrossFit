@@ -26,7 +26,7 @@ class NLPFewshotGymSingleTaskData(object):
 
         self.task_name = "_".join(self.data_path.split("/")[-1].split("_")[:-3])
 
-        with open(data_path) as fin:
+        with open(data_path, encoding='utf-8') as fin:
             lines = fin.readlines()
 
         # train_examples = []
