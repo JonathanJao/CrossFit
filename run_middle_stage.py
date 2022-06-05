@@ -13,7 +13,7 @@ from utils import freeze_embeds, trim_batch
 from tqdm import tqdm
 
 def run(args, logger):
-    tokenizer = BartTokenizer.from_pretrained(args.model)
+    tokenizer = BartTokenizer.from_pretrained(args.model, forced_bos_token_id=0)
 
     train_data = NLPFewshotGymSingleTaskData(logger, args, args.train_file, data_type="train", is_training=True)
     dev_data = NLPFewshotGymSingleTaskData(logger, args, args.dev_file, data_type="dev", is_training=False)

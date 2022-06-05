@@ -12,7 +12,7 @@ class MyBart(BartForConditionalGeneration):
             use_cache=False, is_training=False):
 
         if is_training:
-            _decoder_input_ids = shift_tokens_right(decoder_input_ids, self.config.pad_token_id)
+            _decoder_input_ids = shift_tokens_right(decoder_input_ids, self.config.pad_token_id, 0)
         else:
             _decoder_input_ids = decoder_input_ids
 
