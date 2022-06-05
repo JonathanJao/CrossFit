@@ -166,7 +166,8 @@ METRICS = {
     'xsum': 'Rouge-L',
     'yahoo_answers_topics': 'Classification-F1',
     'yelp_polarity': 'Classification-F1',
-    'yelp_review_full': 'Pearson-Correlation'
+    'yelp_review_full': 'Pearson-Correlation',
+    '' : 'QA-F1'
 }
 
 def evaluate(predictions, data, metric):
