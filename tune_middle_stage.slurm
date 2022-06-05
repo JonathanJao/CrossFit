@@ -15,13 +15,15 @@ source /ext3/env.sh
 conda activate crossfit
 cd $SCRATCH/CrossFit/
 python cli_middle_stage.py \
-    --task_dir middle_stage_data/ \
     --do_train --learning_rate 1e-5 \
-    --train_batch_size 1 \
-    --total_steps 6000 \
+    --train_batch_size 32 \
+    --total_steps 16980 \
     --eval_period 100 \
-    --warmup_steps 360 \
+    --warmup_steps 1018 \
     --model facebook/bart-base \
-    --output_dir models/middle_stage
-    --num_train_epochs 40;
+    --output_dir models/middle_stage \
+    --train_file middle_stage_data/big.tsv \
+    --dev_file middle_stage_data/big.tsv \
+    --num_train_epochs 10;
+
 "
