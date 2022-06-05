@@ -49,7 +49,7 @@ class DBpedia14(FewshotGymClassificationDataset):
         return lines
 
     def load_dataset(self):
-        return datasets.load_dataset('dbpedia_14')
+        return datasets.load_dataset('dbpedia_14', ignore_verifications=True)
 
 def main():
     dataset = DBpedia14()
