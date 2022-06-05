@@ -26,7 +26,7 @@ import random
 import numpy as np
 import torch
 
-from run_singletask import run
+from run_middle_stage import run
 
 def main():
     parser = argparse.ArgumentParser()
