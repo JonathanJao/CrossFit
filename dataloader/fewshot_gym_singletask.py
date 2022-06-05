@@ -31,7 +31,7 @@ class NLPFewshotGymSingleTaskData(object):
 
         # train_examples = []
         for line in lines:
-            d = line.decode('utf-8').strip().split("\t")
+            d = line.strip().split("\t")
             self.data.append((d[0], d[1:]))
             
 
