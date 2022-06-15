@@ -24,39 +24,21 @@ class NLPFewshotGymMultiTaskData(object):
 
         # keep "sorted" so that things are consistent across machines
         for task in sorted(tasks): 
-            task_dir = os.path.join(self.data_path, task)
-            files = sorted(os.listdir(task_dir))
-            prefixes = []
-            for filename in files:
-                if not filename.endswith(".tsv"):
-                    continue
-                prefix = "_".join(filename.split("_")[:-1])
-                if prefix not in prefixes:
-                    prefixes.append(prefix)
+            
+            with open(os.path.join(self.data_path, task + ".tsv")) as fin:
+                lines = fin.readlines()
 
-            for prefix in prefixes:
-                with open(os.path.join(task_dir, prefix + "_train.tsv")) as fin:
-                    lines = fin.readlines()
+            train_examples = []
+            for line in lines:
+                d = line.strip().split("\t")
+                train_examples.append((d[0], d[1:]))
 
-                train_examples = []
-                for line in lines:
-                    d = line.strip().split("\t")
-                    train_examples.append((d[0], d[1:]))
-
-                with open(os.path.join(task_dir, prefix + "_dev.tsv")) as fin:
-                    lines = fin.readlines()
-                    
-                dev_examples = []
-                for line in lines:
-                    d = line.strip().split("\t")
-                    dev_examples.append((d[0], d[1:]))
-
-                self.data.append({
-                    "task_name": task,
-                    "task_prefix": prefix,
-                    "train_examples": train_examples,
-                    "dev_examples": dev_examples
-                })
+            self.data.append({
+                "task_name": task,
+                "task_prefix": "_",
+                "train_examples": train_examples,
+                "dev_examples": []
+            })
             
 
         self.data_split = data_split
