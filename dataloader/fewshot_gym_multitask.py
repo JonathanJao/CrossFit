@@ -25,7 +25,7 @@ class NLPFewshotGymMultiTaskData(object):
         # keep "sorted" so that things are consistent across machines
         for task in sorted(tasks): 
             
-            with open(os.path.join(self.data_path, task + ".tsv")) as fin:
+            with open(os.path.join(self.data_path, task + ".tsv"), encoding='utf-8', errors='ignore') as fin:
                 lines = fin.readlines()
 
             train_examples = []
