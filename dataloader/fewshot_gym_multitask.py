@@ -110,10 +110,10 @@ class NLPFewshotGymMultiTaskData(object):
 
             outputs, metadata = self.flatten(outputs) # what is metadata?
 
-            # self.logger.info("Printing 3 examples")
-            # for i in range(3):
-            #     self.logger.info(inputs[i])
-            #     self.logger.info(outputs[i])
+            self.logger.info("Printing 3 examples")
+            for i in range(3):
+                self.logger.info(inputs[i])
+                self.logger.info(outputs[i])
 
             if self.args.do_lowercase:
                 inputs = [input0.lower() for input0 in inputs]
