@@ -35,8 +35,15 @@ class MyQADataset(Dataset):
             idx = self.in_metadata[idx][0]
             return self.input_ids[idx], self.attention_mask[idx]
 
-        in_idx = np.random.choice(range(*self.in_metadata[idx]))
-        out_idx = np.random.choice(range(*self.out_metadata[idx]))
+        if len(range(*self.in_metadata[idx])) > 0:
+            in_idx = np.random.choice(range(*self.in_metadata[idx]))
+        else:
+            out_idx = 0
+
+        if len(range(*self.out_metadata[idx])) > 0:
+            out_idx = np.random.choice(range(*self.out_metadata[idx]))
+        else:
+            out_idx = 0
         return self.input_ids[in_idx], self.attention_mask[in_idx], \
             self.decoder_input_ids[out_idx], self.decoder_attention_mask[out_idx]
 
