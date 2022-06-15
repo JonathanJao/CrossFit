@@ -5002,47 +5002,9 @@
         "440d0452_d_Referrals_with___PACKT_Books__Description"
     ],
     "dev": [
-        "cos_e",
-        "kilt_fever",
-        "eli5-asks",
-        "trec",
-        "eli5-eli5",
-        "art",
-        "empathetic_dialogues",
-        "tweet_qa",
-        "wikisql",
-        "lama-trex",
-        "tweet_eval-stance_hillary",
-        "discovery",
-        "tweet_eval-emotion",
-        "liar",
-        "wiki_bio",
-        "dream",
-        "ade_corpus_v2-classification",
-        "health_fact",
-        "samsum",
-        "financial_phrasebank"
+        "440d0452_d_Referrals_with___PACKT_Books__Description"
     ],
     "test": [
-        "quoref",
-        "wiki_split",
-        "ethos-disability",
-        "yelp_polarity",
-        "superglue-rte",
-        "glue-cola",
-        "ethos-sexual_orientation",
-        "blimp-sentential_negation_npi_scope",
-        "ai2_arc",
-        "amazon_polarity",
-        "race-high",
-        "blimp-sentential_negation_npi_licensor_present",
-        "tweet_eval-irony",
-        "break-QDMR",
-        "crawl_domain",
-        "freebase_qa",
-        "glue-qnli",
-        "hatexplain",
-        "ag_news",
-        "circa"
+        "440d0452_d_Referrals_with___PACKT_Books__Description"
     ]
 }
