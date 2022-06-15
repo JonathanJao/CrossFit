@@ -4,8 +4,10 @@ import pandas as pd
 
 if len(sys.argv) == 2:
 
-    divdom = sys.argv[1]
-    files = json.loads(open(divdom).read())['train']
+    files = []
+    with open(sys.argv[1]) as f:
+        for p in f:
+            files.append(p.strip())
 
     obj_list = []
     for filename in files:
