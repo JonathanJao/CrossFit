@@ -11,12 +11,20 @@
 
 echo "Startup Parameters:"
 echo $1 # TASK
-singularity exec --nv --overlay $SCRATCH/overlay-50G-10M.ext3:ro /scratch/work/public/singularity/cuda10.1-cudnn7-devel-ubuntu18.04-20201207.sif /bin/bash -c "
 
-source /ext3/env.sh
-conda activate crossfit
-cd $SCRATCH/CrossFit/
-echo "Parameters:"
-echo $1
-python tune_hps_singletask.py --task_dir data/$1/ --do_train --do_predict --learning_rate_list 1e-5 2e-5 5e-5 --bsz_list 2 4 8  --total_steps 1000  --eval_period 100  --warmup_steps 100  --model facebook/bart-base --output_dir models/baseline/$1  --predict_batch_size 32 
-"
+conda init
+conda activate crossfit_debug
+cd $SCRATCH/CrossFit
+
+python tune_hps_singletask.py \
+    --task_dir data/$1/ \
+    --do_train \
+    --do_predict \
+    --learning_rate_list 1e-5 2e-5 5e-5 \
+    --bsz_list 2 4 8  \
+    --total_steps 1000  \
+    --eval_period 100  \
+    --warmup_steps 100  \
+    --model facebook/bart-base \
+    --output_dir models/baseline/$1  \
+    --predict_batch_size 32 

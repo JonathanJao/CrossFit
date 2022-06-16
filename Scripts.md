@@ -1,13 +1,8 @@
 # Build Baseline
 ```bash
-for TASK in $(ls $SCRATCH/CrossFit/data)
+for TASK in quoref wiki_split ethos-disability yelp_polarity superglue-rte glue-cola ethos-sexual_orientation blimp-sentential_negation_npi_scope ai2_arc amazon_polarity race-high blimp-sentential_negation_npi_licensor_present tweet_eval-irony break-QDMR crawl_domain freebase_qa glue-qnli hatexplain ag_news circa
 do sbatch --output=$TASK.out --error=$TASK.err baseline_singletask.slurm $TASK
 done
-```
-
-# Tune middle stage HR to LR Dev
-```bash
-sbatch tune_middle_stage_hr.slurm
 ```
 
 # Tune middle stage WDC
@@ -16,35 +11,7 @@ sbatch tune_middle_stage_hr.slurm
 sbatch tune_middle_stage_wdc.slurm
 ```
 
-
-# Fine Tune HR
 ```bash
-
-for TASK in $(ls $SCRATCH/CrossFit/data)
-do
-# for N in {0..9}
-# do
-# echo $N-$TASK
-sbatch --export=N,TASK --output=$N-$TASK.out --error=$N-$TASK.err $SCRATCH/CrossFit/slurm/tune_final_stage_hr.slurm
-# done
-done
-```
-# Fine Tune HR
-
-```bash
-for TASK in $(ls $SCRATCH/CrossFit/data)
-do
-# for N in {0..9}
-# do
-# echo $N-$TASK
-sbatch --export=N,TASK --output=$N-$TASK.out --error=$N-$TASK.err $SCRATCH/CrossFit/slurm/tune_final_stage_hr.slurm
-# done
-done
-```
-
-
-
-
 TASK_SPLIT=dataloader/custom_tasks_splits/cross_random_tables_5k.json
 python cli_multitask.py \
 --do_train \
@@ -56,3 +23,14 @@ python cli_multitask.py \
 --output_dir models/upstream-multitask \
 --train_batch_size 32 \
 --num_train_epochs 10;
+```
+
+# Fine Tune HR
+```bash
+
+for TASK in quoref wiki_split ethos-disability yelp_polarity superglue-rte glue-cola ethos-sexual_orientation blimp-sentential_negation_npi_scope ai2_arc amazon_polarity race-high blimp-sentential_negation_npi_licensor_present tweet_eval-irony break-QDMR crawl_domain freebase_qa glue-qnli hatexplain ag_news circa
+do
+sbatch --output=$TASK.out --error=$TASK.err $SCRATCH/CrossFit/slurm/tune_final_stage_wdc.slurm $TASK
+done
+```
+

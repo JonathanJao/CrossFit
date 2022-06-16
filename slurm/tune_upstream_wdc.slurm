@@ -9,9 +9,10 @@
 #SBATCH --mem=64G
 #SBATCH -c 4
 
-
+conda init
 conda activate crossfit_debug
 cd $SCRATCH/CrossFit
+
 TASK_SPLIT=dataloader/custom_tasks_splits/cross_random_tables_5k.json
 python cli_multitask.py \
 --do_train \
