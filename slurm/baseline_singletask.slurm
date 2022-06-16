@@ -12,8 +12,11 @@
 echo "Startup Parameters:"
 echo $1 # TASK
 
-conda init
-conda activate crossfit_debug
+USERDIR=/home/$USER
+module purge
+module load anaconda3/2020.07
+source ~/.bashrc
+conda activate $USERDIR/.conda/envs/crossfit_debug
 cd $SCRATCH/CrossFit
 
 python tune_hps_singletask.py \

@@ -1,7 +1,7 @@
 # Build Baseline
 ```bash
 for TASK in quoref wiki_split ethos-disability yelp_polarity superglue-rte glue-cola ethos-sexual_orientation blimp-sentential_negation_npi_scope ai2_arc amazon_polarity race-high blimp-sentential_negation_npi_licensor_present tweet_eval-irony break-QDMR crawl_domain freebase_qa glue-qnli hatexplain ag_news circa
-do sbatch --output=$TASK.out --error=$TASK.err baseline_singletask.slurm $TASK
+do sbatch --output=$TASK.out --error=$TASK.err $SCRATCH/CrossFit/slurm/baseline_singletask.slurm $TASK
 done
 ```
 
